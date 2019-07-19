@@ -12,7 +12,7 @@ function App() {
             <h3>For the Accordion task kindly checkout to "Accordion" branch</h3>
           </li>
           <li>
-            <h3>For the Form task kindly checkout to "Form" branch</h3>
+            <h3>For the Form task kindly checkout to "ContactForm" branch</h3>
           </li>
         </ul>
       </div>
