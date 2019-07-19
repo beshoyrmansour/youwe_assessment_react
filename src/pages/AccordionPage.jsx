@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AccordionContainerComp, AccordionComp } from "../components";
+import { AccordionComp, AccordionBlockComp } from "../components";
 import groupsImg from "../assets/groups.png";
 import externalImg from "../assets/external-link.png";
 import oldmanImg from "../assets/unnamed.png";
@@ -8,8 +8,8 @@ import "./accordion.scss";
 function AccordionPage() {
   return (
     <div className="card-columns">
-      <AccordionContainerComp sideIcon={groupsImg}>
-        <AccordionComp isPrimary title={"Hello BESHO"}>
+      <AccordionComp sideIcon={groupsImg}>
+        <AccordionBlockComp isPrimary title={"Hello BESHO"}>
           <div className="card">
             <img className="card-img-top" src={oldmanImg} alt="Card image cap" />
             <div className="card-body">
@@ -20,73 +20,73 @@ function AccordionPage() {
               </a>
             </div>
           </div>
-        </AccordionComp>
-        <AccordionComp title={"Hello BESHO2"}>
+        </AccordionBlockComp>
+        <AccordionBlockComp title={"Hello BESHO2"}>
           <div>Hii 2</div>
-        </AccordionComp>
-        <AccordionComp title={"Hello BESHO3"}>
+        </AccordionBlockComp>
+        <AccordionBlockComp title={"Hello BESHO3"}>
           <div>Hii 3</div>
-        </AccordionComp>
-        <AccordionComp title={"Hello BESHO3"}>
+        </AccordionBlockComp>
+        <AccordionBlockComp title={"Hello BESHO3"}>
           <div>Hii 3</div>
-        </AccordionComp>
-      </AccordionContainerComp>
+        </AccordionBlockComp>
+      </AccordionComp>
 
-      <AccordionContainerComp sideIcon={groupsImg}>
-        <AccordionComp isPrimary title={"Hello BESHO"}>
+      <AccordionComp sideIcon={groupsImg}>
+        <AccordionBlockComp isPrimary title={"Hello BESHO"}>
           <div>Hii 1</div>
-        </AccordionComp>
-        <AccordionComp title={"Hello BESHO2"}>
+        </AccordionBlockComp>
+        <AccordionBlockComp title={"Hello BESHO2"}>
           <div>Hii 2</div>
-        </AccordionComp>
-        <AccordionComp title={"Hello BESHO3"}>
+        </AccordionBlockComp>
+        <AccordionBlockComp title={"Hello BESHO3"}>
           <div>Hii 3</div>
-        </AccordionComp>
-      </AccordionContainerComp>
-      <AccordionContainerComp sideIcon={externalImg}>
-        <AccordionComp isPrimary title={"Hello BESHO"}>
+        </AccordionBlockComp>
+      </AccordionComp>
+      <AccordionComp sideIcon={externalImg}>
+        <AccordionBlockComp isPrimary title={"Hello BESHO"}>
           <div>Hii 1</div>
-        </AccordionComp>
-        <AccordionComp title={"Hello BESHO2"}>
+        </AccordionBlockComp>
+        <AccordionBlockComp title={"Hello BESHO2"}>
           <div>Hii 2</div>
-        </AccordionComp>
-        <AccordionComp title={"Hello BESHO3"}>
+        </AccordionBlockComp>
+        <AccordionBlockComp title={"Hello BESHO3"}>
           <div>Hii 3</div>
-        </AccordionComp>
-      </AccordionContainerComp>
-      <AccordionContainerComp cancelable>
-        <AccordionComp isPrimary title={"Hello BESHO"}>
+        </AccordionBlockComp>
+      </AccordionComp>
+      <AccordionComp cancelable>
+        <AccordionBlockComp isPrimary title={"Hello BESHO"}>
           <div>Hii 1</div>
-        </AccordionComp>
-        <AccordionComp title={"Hello BESHO2"}>
+        </AccordionBlockComp>
+        <AccordionBlockComp title={"Hello BESHO2"}>
           <div>Hii 2</div>
-        </AccordionComp>
-        <AccordionComp title={"Hello BESHO3"}>
+        </AccordionBlockComp>
+        <AccordionBlockComp title={"Hello BESHO3"}>
           <div>Hii 3</div>
-        </AccordionComp>
-      </AccordionContainerComp>
+        </AccordionBlockComp>
+      </AccordionComp>
 
-      <AccordionContainerComp>
-        <AccordionComp isPrimary title={"Hello BESHO"}>
+      <AccordionComp>
+        <AccordionBlockComp isPrimary title={"Hello BESHO"}>
           <div>Hii 1</div>
-        </AccordionComp>
-        <AccordionComp title={"Hello BESHO2"}>
+        </AccordionBlockComp>
+        <AccordionBlockComp title={"Hello BESHO2"}>
           <div>Hii 2</div>
-        </AccordionComp>
-        <AccordionComp title={"Hello BESHO3"}>
+        </AccordionBlockComp>
+        <AccordionBlockComp title={"Hello BESHO3"}>
           <div>Hii 3</div>
-        </AccordionComp>
-      </AccordionContainerComp>
+        </AccordionBlockComp>
+      </AccordionComp>
 
-      <AccordionContainerComp>
-        <AccordionComp />
-        <AccordionComp>
+      <AccordionComp>
+        <AccordionBlockComp />
+        <AccordionBlockComp>
           <div>Hii 2</div>
-        </AccordionComp>
-        <AccordionComp>
+        </AccordionBlockComp>
+        <AccordionBlockComp>
           <div>Hii 3</div>
-        </AccordionComp>
-      </AccordionContainerComp>
+        </AccordionBlockComp>
+      </AccordionComp>
     </div>
   );
 }

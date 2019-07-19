@@ -1,85 +1,47 @@
-import React, { useContext } from "react";
-import { AccordionContext } from "../contexts/AccordionContext";
+import React, { useContext, useEffect, useState } from "react";
+import AccordionContextProvider, { AccordionContext } from "../contexts/AccordionContext";
+import closeImg from "../assets/close.png";
 
-import { CSSTransition } from "react-transition-group";
+// import uuid from "uuid/v4";
 
-import arrowRightImg from "../assets/arrow-right.png";
-import arrowDownImg from "../assets/arrow-down.png";
+const uuidv4 = () => {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+};
+const innerKey = uuidv4();
 
 const AccordionComp = props => {
-  console.log("props", props);
-  let isPrimary = props.isPrimary;
-  let isOpen = true;
-  const { activeItemId, setActiveItem } = useContext(AccordionContext);
-  if ((activeItemId === null && isPrimary) || activeItemId === props.innerKey) {
-    setActiveItem(props.innerKey);
-  }
-  if (!props.children)
-    return (
-      <div className="alert alert-danger" role="alert">
-        you must provide content !!
+  //   const { activeItemId } = useContext(AccordionContext);
+  //   console.log("children", props.children);
+  // let elements = React.Children.toArray(props.children);
+
+  const elements = React.Children.map(props.children, child =>
+    React.cloneElement(child, {
+      innerKey: uuidv4(),
+      cancelable: props.cancelable,
+      sideIcon: props.sideIcon
+    })
+  );
+  const [CloseMe, setCloseMe] = useState(true);
+  const toggleCloseMe = () => setCloseMe(!CloseMe);
+  return (
+    CloseMe && (
+      <div>
+        {/* {activeItemId} */}
+        <AccordionContextProvider>
+          <div className="card accordion-container-comp">
+            {props.sideIcon && <img className="accordion-container-icon" src={props.sideIcon} alt="" />}
+            {(props.cancelable || props.sideIcon) && (
+              <img className="accordion-container-close" style={{ right: "0px" }} src={closeImg} alt="" onClick={toggleCloseMe} />
+            )}
+            <ul className={(props.sideIcon && "hasIcon") || (props.cancelable && "cancelable")}>{elements}</ul>
+          </div>
+        </AccordionContextProvider>
       </div>
-    );
-  if (!props.title)
-    return (
-      <div className="alert alert-danger" role="alert">
-        you must provide title !!
-      </div>
-    );
-  else
-    return (
-      <React.Fragment>
-        <li>
-          {/* <h1>{activeItemId == props.innerKey ? "ACTIVE" : "INACTIVE"}</h1> */}
-          {activeItemId === props.innerKey ? (
-            <div className="open-item">
-              <div
-                // {!!props.cancelable && !!props.sideIcon}
-                className={props.cancelable || props.sideIcon ? "item-title-primary" : "item-title"}
-                onClick={() => {
-                  // setActiveItem(props.innerKey);
-                  isPrimary = false;
-                  setActiveItem("");
-                }}
-              >
-                <p className="item-title-text">{props.title ? props.title : "No Title"}</p>
-                <button className="btn btn-secondary">
-                  <img src={arrowDownImg} alt="" />
-                </button>
-              </div>
-              <CSSTransition
-                in={activeItemId === props.innerKey}
-                timeout={300}
-                classNames="open-item"
-                unmountOnExit
-                onEnter={() => setActiveItem(props.innerKey)}
-                onExited={() => setActiveItem("")}
-              >
-                <div className="accordion-item-contet">{props.children}</div>
-              </CSSTransition>
-            </div>
-          ) : (
-            <div
-              className="closed-item"
-              onClick={() => {
-                setActiveItem(props.innerKey);
-              }}
-            >
-              <div
-                className="item-title"
-                onClick={() => {
-                  setActiveItem(props.innerKey);
-                }}
-              >
-                <p className="item-title-text">{props.title ? props.title : "No Title"}</p>
-                <button className="btn btn-secondary">
-                  <img src={arrowRightImg} alt="" />
-                </button>
-              </div>
-            </div>
-          )}
-        </li>
-      </React.Fragment>
-    );
+    )
+  );
 };
 export default AccordionComp;
