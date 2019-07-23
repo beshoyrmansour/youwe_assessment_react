@@ -1,3 +1,3 @@
-
 import Navbars from "./Navbars";
-export { Navbars };
+import ContactFormComp from "./ContactFormComp";
+export { Navbars, ContactFormComp };

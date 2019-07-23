@@ -1,20 +1,14 @@
 import React from "react";
 import "./App.scss";
 import { Navbars } from "./components";
+import { ContactPage } from "./pages";
 
 function App() {
   return (
     <div className="App ">
       <Navbars />
       <div className="container">
-        <ul>
-          <li>
-            <h3>For the Accordion task kindly checkout to "Accordion" branch</h3>
-          </li>
-          <li>
-            <h3>For the Form task kindly checkout to "ContactForm" branch</h3>
-          </li>
-        </ul>
+        <ContactPage />
       </div>
     </div>
   );
