@@ -2,17 +2,24 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 function ContactFormComp(props) {
-  const [formData, setFormData] = useState({
+  const [formInputsData, setFormInputsData] = useState({
     Name: "",
     Email: "",
     Subject: "",
     Message: ""
   });
-  const [formValidations, setFormValidations] = useState({});
+  const [formValidations, setFormValidations] = useState({
+    Name: "",
+    Email: "",
+    Subject: "",
+    Message: ""
+  });
   const [isFormInvalid, setIsFormInvalid] = useState(true);
 
-  const hamdleFormDataChange = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const hamdleFormInputsDataChange = e => {
+    setFormInputsData({ ...formInputsData, [e.target.name]: e.target.value });
+    ValidateFormField(e.target.name, e.target.value);
+    CanSubmit();
   };
   const ValidateFormField = (FieldName, FieldValue) => {
     // console.log("ValidateFormField ==>", "FieldName : " + FieldName, ", FieldValue : " + FieldValue);
@@ -41,29 +48,31 @@ function ContactFormComp(props) {
         default:
           break;
       }
-      setIsFormInvalid(true);
+      // setIsFormInvalid(true);
     } else {
       setFormValidations({ ...formValidations, [FieldName]: "" });
     }
   };
-  const hamdleBlur = e => {
+  const handleBlur = e => {
     ValidateFormField(e.target.name, e.target.value);
-    const AllFormFieldsHasData = !!Object.values(formData).filter(x => x === null || x === "").length;
-    const AllValidationFieldsHasData = !!Object.values(formValidations).filter(x => x === null || x === "").length;
+    CanSubmit();
   };
 
   const CanSubmit = () => {
-    // const hasNoMessages = Object.values(formValidations).every(x => x === null || x === "");
-    const hasNoMessages = Object.values(formValidations).every(x => {
-      console.log("x", x);
-      return x === null || x === "";
-    });
-
-    setIsFormInvalid(hasNoMessages);
+    const AllFormFieldsHasData = !!Object.values(formInputsData).filter(x => x === null || x === "").length;
+    const AllValidationFieldsHasData = !!Object.values(formValidations).filter(x => x !== "").length;
+    const isCanSubmit = !AllFormFieldsHasData && !AllValidationFieldsHasData;
+    setIsFormInvalid(isCanSubmit);
+    return isCanSubmit;
   };
 
   const handleSubmit = event => {
     if (event) event.preventDefault();
+    if (CanSubmit()) {
+      alert("Hallo " + formInputsData.Name + "\n bedankt voor je bericht");
+    } else {
+      alert("ongeldige gegevens, controleer dit");
+    }
   };
 
   return (
@@ -79,9 +88,9 @@ function ContactFormComp(props) {
             id="Name"
             name="Name"
             placeholder="Naam"
-            value={formData.Name}
-            onChange={hamdleFormDataChange}
-            onBlur={hamdleBlur}
+            value={formInputsData.Name}
+            onChange={hamdleFormInputsDataChange}
+            onBlur={handleBlur}
           />
         </div>
         <div className="col-12 col-md-10 col-lg-5 offset-md-2 offset-lg-0">
@@ -101,9 +110,9 @@ function ContactFormComp(props) {
             id="Email"
             name="Email"
             placeholder="Email"
-            value={formData.Email}
-            onChange={hamdleFormDataChange}
-            onBlur={hamdleBlur}
+            value={formInputsData.Email}
+            onChange={hamdleFormInputsDataChange}
+            onBlur={handleBlur}
           />
         </div>
         <div className="col-12 col-md-10 col-lg-5 offset-md-2 offset-lg-0">
@@ -123,9 +132,9 @@ function ContactFormComp(props) {
             id="Subject"
             name="Subject"
             placeholder="Onderwerp"
-            value={formData.Subject}
-            onChange={hamdleFormDataChange}
-            onBlur={hamdleBlur}
+            value={formInputsData.Subject}
+            onChange={hamdleFormInputsDataChange}
+            onBlur={handleBlur}
           />
         </div>
         <div className="col-12 col-md-10 col-lg-5 offset-md-2 offset-lg-0">
@@ -145,9 +154,9 @@ function ContactFormComp(props) {
             id="Message"
             name="Message"
             placeholder="Bericht"
-            value={formData.Message}
-            onChange={hamdleFormDataChange}
-            onBlur={hamdleBlur}
+            value={formInputsData.Message}
+            onChange={hamdleFormInputsDataChange}
+            onBlur={handleBlur}
           />
         </div>
         <div className="col-12 col-md-10 col-lg-10 offset-md-2">
@@ -158,7 +167,7 @@ function ContactFormComp(props) {
       </div>
       <div className="row">
         <div className="col-12 col-md-10 col-lg-3 offset-md-2 offset-lg-9">
-          <button type="submit" className="btn btn-primary btn-block" onClick={handleSubmit}>
+          <button type="submit" className="btn btn-primary btn-block" disabled={!isFormInvalid} onClick={handleSubmit}>
             Verstuur
           </button>
         </div>
